@@ -1,0 +1,43 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>자유게시판</title>
+    <link rel="stylesheet" href="/css/postList.css">
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <h1>자유게시판</h1>
+            <ul class="menu">
+                <li class="menu_item">
+                    <a href="/post" class="menuLink">글 쓰기</a>
+                </li>
+                <li class="menu_item">
+                    <a href="/" class="menuLink">메인 화면</a>
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+            <div class="content">
+                <table>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일자</th>
+                    </tr>
+                    <tr th:each="post : ${postList}">
+                        <th th:text="${post.id}"></th>
+                        <th><a th:text="${post.title}" th:href="@{|/post/${post.id}|}"></a></th>
+                        <th th:text="${post.createdBy}"></th>
+                        <th th:text="${post.createdAt}"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer">
+            Email: pjh5365@naver.com &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <a href="https://github.com/pjh5365/spring-board-service" target="_blank">Github</a>
+        </div>
+    </div>
+</body>

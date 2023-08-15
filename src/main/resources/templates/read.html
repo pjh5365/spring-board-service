@@ -1,0 +1,72 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>자유게시판</title>
+    <link rel="stylesheet" href="/css/read.css">
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <h1>자유게시판</h1>
+            <ul class="menu">
+                <li class="menu_item">
+                    <a href="/post-list" class="menuLink">글 목록</a>
+                </li>
+                <li class="menu_item">
+                    <a th:href="@{/post-update/{id}(id=${post.id})}" class="menuLink">수정하기</a>
+                </li>
+                    <li class="menu_item">
+                        <a onclick="deleteConfirm()" class="menuLink">삭제하기</a>
+                    </li>
+            </ul>
+        </div>
+        <div class="container">
+            <form id="info">
+                <span>작성자 : [[${post.createdBy}]]</span>
+                <span>작성시간 : [[${post.createdAt}]]</span>
+                <span>최종수정시간 : [[${post.modifiedAt}]]</span>
+            </form>
+            <div class="content">
+                <form class="text">
+                    <h2 th:text="${post.title}"></h2><hr>
+                    <span th:text="${post.content}"></span>
+                </form>
+            </div>
+            <h3>댓글</h3>
+            <div class="content">
+                <form class="text" name="write" method="post" th:action="@{/api/comment/{id}(id=${post.id})}">
+                    <textarea cols="110" rows="4" name="content" placeholder="작성" id="content" required></textarea>
+                    <input id="btn" type="submit" value="댓글 작성">
+                </form>
+                <form class="text" th:each="comment : ${commentList}">
+                    <div id="comments">
+                        <span th:text="${comment.content}"></span>
+                    </div>
+                    <div id="c_info">
+                        <span class="c_info">작성자 : [[${comment.createdBy}]] / 작성시간 : [[${comment.createdAt}]] / 최종수정시간 : [[${comment.modifiedAt}]]</span>
+                        <div>
+<!--                            TODO 삭제 버튼은 권한 확인 후 맞을때만 표시-->
+                            <a th:href="@{/api/comment/{postId}/{commentId}(postId=${post.id}, commentId=${comment.id})}">삭제</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="footer">
+            Email: pjh5365@naver.com &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <a href="https://github.com/pjh5365/spring-board-service" target="_blank">Github</a>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function deleteConfirm() {
+            if (confirm("글을 삭제하시겠습니까?")) {
+                /* TODO RESTful 하게 링크 변경 필요할듯? */
+                location.href = "/api/post-delete/" + "[[${post.id}]]";
+            } else {
+                alert("취소하였습니다.");
+            }
+        }
+        /*]]>*/
+    </script>
+</body>
