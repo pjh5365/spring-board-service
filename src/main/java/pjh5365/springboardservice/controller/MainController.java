@@ -31,12 +31,6 @@ public class MainController {
         return "forward:/api/post-update/" + postId;
     }
 
-/*    // 게시글 삭제를 위한 이동
-    @RequestMapping("/post-delete/{postId}")
-    public String delete(@PathVariable Long postId) {
-        return "forward:/api/post-delete/" + postId;
-    }*/
-
     // 게시글 단일 조회
     @RequestMapping("/post/{postId}")
     public String openPosting(@PathVariable Long postId) {
@@ -47,5 +41,17 @@ public class MainController {
     @RequestMapping("/register")
     public String register() {
         return "register";
+    }
+
+    // 로그인 페이지 열기
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    // 로그인 실패 열기
+    @RequestMapping("/login/error")
+    public String loginError() {
+        return "loginError";
     }
 }
