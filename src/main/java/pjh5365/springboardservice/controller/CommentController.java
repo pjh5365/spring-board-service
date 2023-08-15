@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import pjh5365.springboardservice.entity.Comment;
 import pjh5365.springboardservice.service.CommentService;
 
+import java.util.List;
+
 @RequestMapping("/api")
 @Controller
 public class CommentController {
@@ -18,27 +20,28 @@ public class CommentController {
     }
 
     @GetMapping("/comments")
-    public void getAllList() {
-        commentService.getAllList();
+    @ResponseBody   // JSON 으로 반환
+    public List<Comment> getAllList() {
+        List<Comment> commentList = commentService.getAllList();
+
+        return commentList;
     }
 
-    @GetMapping("/comments/{postId}")
-    public void getListById(@PathVariable Long postId) {
-        commentService.getListByPostId(postId);
-    }
-
-    @PostMapping("/comments/{postId}")
-    public void saveComment(@PathVariable Long postId, @ModelAttribute Comment comment) {
+    @PostMapping("/comment/{postId}")
+    public String saveComment(@PathVariable Long postId, @ModelAttribute Comment comment) {
+        comment.setPostId(postId);
         commentService.saveComment(comment);
+
+        return "redirect:/post/" + postId;
     }
 
     @PatchMapping
-    @PutMapping("/comments/{postId}")
+    @PutMapping("/comment/{postId}")
     public void updateComment(@ModelAttribute Comment comment) {
         commentService.saveComment(comment);
     }
 
-    @DeleteMapping("/comments/{postId}")
+    @DeleteMapping("/comment/{postId}")
     public void deleteComment(@PathVariable Long postId) {
         commentService.deleteComment(postId);
     }

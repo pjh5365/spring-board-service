@@ -20,7 +20,8 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public void register(@ModelAttribute Member member) {
+    public String  register(@ModelAttribute Member member) {
         memberService.register(member);
+        return "redirect:/";
     }
 }
