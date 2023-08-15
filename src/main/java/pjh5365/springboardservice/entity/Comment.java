@@ -19,5 +19,5 @@ public class Comment {
     private String content; // 본문
     private LocalDateTime createdAt;    // 작성일자
     private String createdBy;   // 작성자
-    private String modifiedBy;  // 수정일자
+    private String modifiedAt;  // 수정일자
 }
