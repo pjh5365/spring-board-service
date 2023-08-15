@@ -21,7 +21,15 @@ public class MemberController {
 
     @PostMapping("/register")
     public String  register(@ModelAttribute Member member) {
-        memberService.register(member);
-        return "redirect:/";
+        int result = memberService.register(member);
+
+        // 로그인 실패했을때 실패했다는 알림을 보내기 위해 페이지 이동
+        if(result == 0) {
+            return "registerFail";
+        }
+        // 로그인 성공 후 메인 페이지로 이동
+        else {
+            return "redirect:/";
+        }
     }
 }
