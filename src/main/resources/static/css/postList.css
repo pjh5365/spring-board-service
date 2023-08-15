@@ -84,11 +84,13 @@ a {
 table {
     max-width: 1200px;
     margin: 0 auto;
-    border: 10px solid #4C4C6D;
+    border-radius: 5px;
     border-collapse : collapse;
+    border-style: hidden;
+    box-shadow: 0 0 0 5px #1BBC9B;
 }
 th, tr {
-    border: 3px solid #4C4C6D;
+    border: 3px solid #1BBC9B;
     font-size: 17px;
 }
 th:first-child {
