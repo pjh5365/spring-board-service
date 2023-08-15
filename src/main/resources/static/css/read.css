@@ -1,0 +1,154 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    background-color: #E5F9DB;
+}
+.wrap {
+    height: 100%;
+    min-width: 800px;
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+/*헤더*/
+.header {
+    position: relative;
+    z-index: 1;
+    background-color: #A0D8B3;
+    height: 100px;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.header > h1 {
+    color: #4C4C6D;
+    margin: 0 auto;
+    display: inline;
+    line-height: 100px;
+    font-size: 50px;
+}
+/*헤더안 메뉴시작*/
+.header > ul {
+    position: absolute;
+    top: 32px;
+    right: 50px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 36px;
+    width: 200px;
+    line-height: 36px;
+    font-weight: bold;
+    border: solid #A0D8B3;
+    color: #4C4C6D;
+    background-color: #F5F0BB;
+}
+.menu {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+.menu_item {
+    display: table-cell;
+}
+.menuLink {
+    display: block;
+    height: 36px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    line-height: 36px;
+    color: #333;
+    text-align: center;
+}
+.menu_item  + .menu_item .menuLink{
+    margin-left: -1px;
+}
+.menu_item:hover .menuLink{
+    color: cornflowerblue;
+    font-weight: bold;
+}
+/*헤더 메뉴 끝*/
+
+.container {
+    position: relative;
+    margin: -100px auto;
+    padding: 100px 0;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+.content {
+    margin: 50px auto;
+}
+#info{
+    border: solid #1BBC9B;
+    margin: 10px auto;
+    width: 700px;
+    border-radius: 5px;
+}
+.text{
+    color: #4C4C6D;
+    border: solid #4C4C6D;
+    margin: 10px auto;
+    width: 1000px;
+    border-radius: 5px;
+}
+span {
+    padding: 10px;
+    display: inline-block;
+}
+.footer {
+    position: relative;
+    z-index: 1;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #A0D8B3;
+}
+#btn {
+    width: 70px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+
+    background-color: #1BBC9B;
+    color: white;
+    vertical-align: middle;
+}
+form > #c_info {
+    padding: 0;
+    font-size: 13px;
+    text-align: right;
+}
+form > div > div {
+    display: inline-block;
+    font-size: 13px;
+    padding-right: 20px;
+}
+textarea {
+    width: 900px;
+    border-radius: 5px;
+    margin-left: -18px;
+    vertical-align: middle;
+    resize: none;
+}
+
+h3 {
+    color: #4C4C6D;
+    border: double #4C4C6D;
+    margin: 0px auto;
+    margin-bottom: -30px;
+    padding: 10px;
+    width: 980px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+form > #comments {
+    text-align: left;
+}

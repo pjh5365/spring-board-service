@@ -1,0 +1,26 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>글 쓰기</title>
+    <link rel="stylesheet" href="/css/post.css">
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <h1>글 작성</h1>
+        </div>
+        <div class="container">
+            <div class="content">
+                <form name="write" method="post" action="/api/post">
+                    <input type="text" name="title" placeholder="제목" required>
+                    <textarea cols="80" rows="10" name="content" placeholder="본문내용" required></textarea>
+                    <input id="btn" type="submit" value="글 작성">
+                </form>
+            </div>
+        </div>
+        <div class="footer">
+            Email: pjh5365@naver.com &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <a href="https://github.com/pjh5365/spring-board-service" target="_blank">Github</a>
+        </div>
+    </div>
+</body>
