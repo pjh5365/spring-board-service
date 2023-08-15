@@ -45,7 +45,8 @@
                     <div id="c_info">
                         <span class="c_info">작성자 : [[${comment.createdBy}]] / 작성시간 : [[${comment.createdAt}]] / 최종수정시간 : [[${comment.modifiedAt}]]</span>
                         <div>
-                            <a href="#">수정</a> / <a href="#">삭제</a>
+<!--                            TODO 삭제, 수정 버튼은 권한 확인 후 맞을때만 표시되게 하고 삭제 눌렀을 때 확인 창 만들기?-->
+                            <a href="#">수정</a> / <a th:href="@{/api/comment/{postId}/{commentId}(postId=${post.id}, commentId=${comment.id})}">삭제</a>
                         </div>
                     </div>
                 </form>
