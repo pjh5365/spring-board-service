@@ -23,7 +23,11 @@ public class SecurityConfig {
                 .loginPage("/login")    // 해당 url 을 사용
                 .loginProcessingUrl("/api/login")   // 스프링 시큐리티가 해당 주소로 넘어오는 로그인을 가로채서 로그인한다. 즉 따로 서비스 만들 필요 없이 사용
                 .failureUrl("/login/error")   // 로그인 실패시 나타낼 주소
-                .defaultSuccessUrl("/");    // 정상일때? 권한인증받았을때 기본값인듯?
+                .defaultSuccessUrl("/")    // 정상일때? 권한인증받았을때 기본값인듯?
+                .and()
+                .logout()   // 로그아웃은
+                .logoutUrl("/logout")   // 해당 url 로 처리하며
+                .logoutSuccessUrl("/"); // 로그아웃 성공하면 루트페이지로 이동
 
         return http.build();
     }
