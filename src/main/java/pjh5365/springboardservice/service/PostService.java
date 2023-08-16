@@ -1,11 +1,11 @@
 package pjh5365.springboardservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pjh5365.springboardservice.entity.Post;
 import pjh5365.springboardservice.repository.PostRepository;
-
-import java.util.List;
 
 @Service
 public class PostService {
@@ -29,8 +29,8 @@ public class PostService {
         postRepository.deleteById(postId);
     }
 
-    public List<Post> postList() {
-        return postRepository.findAll();
+    public Page<Post> postList(Pageable pageable) {
+        return postRepository.findAllByOrderByIdDesc(pageable);
     }
 
     public Post findById(Long postId) {
