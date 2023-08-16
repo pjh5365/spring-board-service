@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import pjh5365.springboardservice.entity.Member;
 import pjh5365.springboardservice.repository.MemberRepository;
 
-import java.time.LocalDateTime;
-
 @Slf4j
 @Service
 public class MemberService {
@@ -28,7 +26,6 @@ public class MemberService {
             String encPassword = bCryptPasswordEncoder.encode(rawPassword);
             member.setPassword(encPassword);    // 패스워드 암호화
 
-            member.setCreatedAt(LocalDateTime.now());
             memberRepository.save(member);
             log.info("회원가입 성공 : {}", member);
             return 1;
