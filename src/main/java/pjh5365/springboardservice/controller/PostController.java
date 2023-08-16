@@ -1,6 +1,8 @@
 package pjh5365.springboardservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +40,13 @@ public class PostController {
 
     @PostMapping("/post")
     public String posting(@ModelAttribute Post post) {
+        // 스프링 시큐리티에서 사용자 정보 불러오기
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+        String username = userDetails.getUsername();
+        // 불러온 사용자 정보 입력
+        post.setCreatedBy(username);
+
         postService.savePost(post);
 
         return "redirect:/post-list";
@@ -45,10 +54,17 @@ public class PostController {
 
     @GetMapping("/post/{postId}")
     public String findById(@PathVariable Long postId, Model model) {
+        // 스프링 시큐리티에서 사용자 정보 불러오기
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+        String username = userDetails.getUsername();
+
         Post post = postService.findById(postId);
         // 댓글 리스트를 함께 불러오기
         List<Comment> commentList = commentService.findAllByPostId(postId);
         model.addAttribute("post", post);
+        // 현재 로그인한 사용자 이름 넘기기
+        model.addAttribute("username", username);
         model.addAttribute("commentList", commentList);
         return "read";
     }
