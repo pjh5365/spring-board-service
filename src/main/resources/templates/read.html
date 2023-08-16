@@ -12,12 +12,12 @@
                 <li class="menu_item">
                     <a href="/post-list" class="menuLink">글 목록</a>
                 </li>
-                <li class="menu_item">
+                <li class="menu_item" th:if="${post.createdBy} == ${username}">
                     <a th:href="@{/post-update/{id}(id=${post.id})}" class="menuLink">수정하기</a>
                 </li>
-                    <li class="menu_item">
-                        <a onclick="deleteConfirm()" class="menuLink">삭제하기</a>
-                    </li>
+                <li class="menu_item" th:if="${post.createdBy} == ${username}">
+                    <a onclick="deleteConfirm()" class="menuLink">삭제하기</a>
+                </li>
             </ul>
         </div>
         <div class="container">
@@ -43,10 +43,10 @@
                         <span th:text="${comment.content}"></span>
                     </div>
                     <div id="c_info">
-                        <span class="c_info">작성자 : [[${comment.createdBy}]] / 작성시간 : [[${comment.createdAt}]] / 최종수정시간 : [[${comment.modifiedAt}]]</span>
+                        <span class="c_info">작성자 : [[${comment.createdBy}]] / 작성시간 : [[${comment.createdAt}]]</span>
                         <div>
-<!--                            TODO 삭제 버튼은 권한 확인 후 맞을때만 표시-->
-                            <a th:href="@{/api/comment/{postId}/{commentId}(postId=${post.id}, commentId=${comment.id})}">삭제</a>
+<!--                            삭제 버튼은 사용자 확인 후 맞을때만 표시-->
+                            <a th:href="@{/api/comment/{postId}/{commentId}(postId=${post.id}, commentId=${comment.id})}" th:if="${comment.createdBy} == ${username}">삭제</a>
                         </div>
                     </div>
                 </form>

@@ -34,6 +34,15 @@
                     </tr>
                 </table>
             </div>
+<!--            페이지의 수가 1보다 클때만 나타나게 -->
+            <div class="pagination" th:if="${postList.totalPages > 1}">
+<!--                첫번째 페이지를 가르킬 땐 -->
+                <a th:href="@{/post-list(page=${postList.pageable.pageNumber - 1})}" th:if="${postList.getPageable().getPageNumber()} != 0">&laquo;</a>
+<!--                존재하는 페이지 만큼 표시하고, 해당 페이지를 가르킬 때 class 를 active 로 변경 -->
+                <a th:href="@{/post-list(page=${page - 1})}" th:each="page : ${#numbers.sequence(startPage, endPage)}" th:text="${page}" th:classappend="${page == postList.pageable.pageNumber+1} ? 'active'"}></a>
+<!--                마지막 페이지를 가르킬땐 안보이게-->
+                <a th:href="@{/post-list(page=${postList.pageable.pageNumber + 1})}" th:if="${postList.getPageable().getPageNumber()} != ${postList.getTotalPages()} - 1">&raquo;</a>
+            </div>
         </div>
         <div class="footer">
             Email: pjh5365@naver.com &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp

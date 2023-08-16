@@ -1,6 +1,8 @@
 package pjh5365.springboardservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pjh5365.springboardservice.entity.Comment;
@@ -29,6 +31,13 @@ public class CommentController {
 
     @PostMapping("/comment/{postId}")
     public String saveComment(@PathVariable Long postId, @ModelAttribute Comment comment) {
+        // 스프링 시큐리티에서 사용자 정보 불러오기
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+        String username = userDetails.getUsername();
+        // 불러온 사용자 정보 입력
+        comment.setCreatedBy(username);
+
         comment.setPostId(postId);
         commentService.saveComment(comment);
 

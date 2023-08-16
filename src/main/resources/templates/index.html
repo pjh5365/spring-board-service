@@ -1,4 +1,4 @@
-<html lang="ko">
+<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>스프링 부트 게시판 서비스</title>
@@ -9,18 +9,18 @@
         <div class="header">
             <h1>스프링 부트 게시판 서비스</h1>
             <ul class="menu">
-<!--                TODO 로그인 하기 전에만 뜨게 하기 -->
-                <li class="menu_item">
+<!--                로그인 전에만 뜨게 설정 -->
+                <li class="menu_item" sec:authorize="!isAuthenticated()">
                     <a href="/register" class="menuLink">회원가입</a>
                 </li>
-                <li class="menu_item">
+                <li class="menu_item" sec:authorize="!isAuthenticated()">
                     <a href="/login" class="menuLink">로그인</a>
                 </li>
-<!--                TODO 로그인 했을 때만 뜨게 하기 -->
-                <li class="menu_item">
+<!--                로그인 했을 때만 뜨게 설정 -->
+                <li class="menu_item" sec:authorize="isAuthenticated()">
                     <a href="/logout" class="menuLink">로그아웃</a>
                 </li>
-                <li class="menu_item">
+                <li class="menu_item" sec:authorize="isAuthenticated()">
                     <a href="/post-list" class="menuLink">글 목록</a>
                 </li>
             </ul>

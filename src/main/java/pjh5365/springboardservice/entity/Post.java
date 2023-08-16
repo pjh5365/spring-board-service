@@ -3,22 +3,17 @@ package pjh5365.springboardservice.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import javax.persistence.*;
 
 @Data
 @Entity
-public class Post {
+public class Post extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;   // 제목
     private String content; // 본문
-    private LocalDateTime createdAt;    // 작성일자
+    @Column(name = "created_by", nullable = false, updatable = false)   // updatable 이 없다면 업데이트 할 때 작성자가 null 로 변경됨
     private String createdBy;   // 작성자
-    private LocalDateTime modifiedAt;   // 수정일자
 }

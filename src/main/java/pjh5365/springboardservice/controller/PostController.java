@@ -1,6 +1,12 @@
 package pjh5365.springboardservice.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +17,7 @@ import pjh5365.springboardservice.service.PostService;
 
 import java.util.List;
 
+@Slf4j
 @RequestMapping("/api")
 @Controller
 public class PostController {
@@ -25,9 +32,32 @@ public class PostController {
     }
 
     @GetMapping("/post-list")
-    public String getList(Model model) {
-        List<Post> postList = postService.postList();
+    public String getList(Model model, @PageableDefault(size = 15) Pageable pageable) {
+        Page<Post> postList = postService.postList(pageable);
+        int startPage;
+        int endPage;
+
+        log.info("페이지 getTotalPages() {}",postList.getTotalPages());
+        log.info("페이지 getPageable().getPageNumber() {}",postList.getPageable().getPageNumber());
+
+        // 페이지네이션의 사이즈를 5로 맞추기 위한 작업 페이지는 0 부터 시작하므로 1씩 빼야함
+        if(pageable.getPageNumber() < 3) {  // 현재 가르키는 페이지가 4페이지 미만일 때
+            startPage = 1;
+            endPage = 5;
+        }
+        else if(pageable.getPageNumber() >= postList.getTotalPages() - 3) {   // 현재 페이지가 총 페이지 - 3 보다 크거나 같을 때는
+            startPage = postList.getTotalPages() - 4;
+            endPage = postList.getTotalPages();
+        }
+        else { // 나머지 경우
+            startPage = postList.getPageable().getPageNumber() - 1;    // 4페이지 보일 때 원래 페이지는 3이므로 1을 빼서 2로 설정
+            endPage = postList.getPageable().getPageNumber() + 3;   // 원래 페이지인 3에 3을 더해 6 로 설정 (2,3,4,5,6 까지 설정 가능)
+        }
+
         model.addAttribute("postList", postList);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
 
         return "postList";
     }
@@ -38,6 +68,13 @@ public class PostController {
 
     @PostMapping("/post")
     public String posting(@ModelAttribute Post post) {
+        // 스프링 시큐리티에서 사용자 정보 불러오기
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+        String username = userDetails.getUsername();
+        // 불러온 사용자 정보 입력
+        post.setCreatedBy(username);
+
         postService.savePost(post);
 
         return "redirect:/post-list";
@@ -45,10 +82,17 @@ public class PostController {
 
     @GetMapping("/post/{postId}")
     public String findById(@PathVariable Long postId, Model model) {
+        // 스프링 시큐리티에서 사용자 정보 불러오기
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails)principal;
+        String username = userDetails.getUsername();
+
         Post post = postService.findById(postId);
         // 댓글 리스트를 함께 불러오기
         List<Comment> commentList = commentService.findAllByPostId(postId);
         model.addAttribute("post", post);
+        // 현재 로그인한 사용자 이름 넘기기
+        model.addAttribute("username", username);
         model.addAttribute("commentList", commentList);
         return "read";
     }
@@ -70,7 +114,7 @@ public class PostController {
         post.setId(postId); // 저장을 위해 id 값 동일하게 설정
         postService.updatePost(post);
 
-        return "redirect:/post-list";
+        return "redirect:/post/" + postId;
     }
 
     /* TODO
