@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -69,9 +70,8 @@ public class PostController {
     @PostMapping("/post")
     public String posting(@ModelAttribute Post post) {
         // 스프링 시큐리티에서 사용자 정보 불러오기
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserDetails userDetails = (UserDetails)principal;
-        String username = userDetails.getUsername();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         // 불러온 사용자 정보 입력
         post.setCreatedBy(username);
 
@@ -83,9 +83,8 @@ public class PostController {
     @GetMapping("/post/{postId}")
     public String findById(@PathVariable Long postId, Model model) {
         // 스프링 시큐리티에서 사용자 정보 불러오기
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserDetails userDetails = (UserDetails)principal;
-        String username = userDetails.getUsername();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
 
         Post post = postService.findById(postId);
         // 댓글 리스트를 함께 불러오기
