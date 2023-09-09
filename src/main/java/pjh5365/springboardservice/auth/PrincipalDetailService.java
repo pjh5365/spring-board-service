@@ -21,10 +21,8 @@ public class PrincipalDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member principal = memberRepository.findByMemberId(username)
-                .orElseThrow(() -> {
-                    // 로그인 실패 핸들러가 없어서 예외를 던져도 콘솔에 표시가 안나는듯
-                   return new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다." + username);
-                });
+                // 핸들러를 사용하지 않아 에러메시지를 확인할 수 는 없음
+                .orElseThrow(() -> new UsernameNotFoundException("해당 사용자 [" + username +  "] 의 정보를 찾을 수 없습니다. 아이디 혹은 비밀번호를 확인해주세요."));
         return new PrincipalDetails(principal);
     }
 }
