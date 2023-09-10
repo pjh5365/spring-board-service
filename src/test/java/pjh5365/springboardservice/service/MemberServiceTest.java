@@ -25,7 +25,7 @@ class MemberServiceTest {
         Member member = new Member();
         member.setMemberId("testID");
         member.setName("TestName");
-        member.setCreatedAt(LocalDateTime.now());
+//        member.setCreatedAt(LocalDateTime.now());
         member.setEmail("TestEmail");
         member.setPassword("PW");
 
