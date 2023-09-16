@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pjh5365.springboardservice.entity.Member;
 import pjh5365.springboardservice.repository.MemberRepository;
 
@@ -19,6 +20,7 @@ public class MemberService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @Transactional
     public int register(Member member) {
         // 이메일과 아이디가 하나만 존재할 때 회원가입 성공
         if(memberRepository.findByMemberId(member.getMemberId()).isEmpty() & memberRepository.findByEmail(member.getEmail()).isEmpty()) {
