@@ -24,12 +24,10 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
-    private final CommentService commentService;
 
     @Autowired
-    public PostController(PostService postService, CommentService commentService) {
+    public PostController(PostService postService) {
         this.postService = postService;
-        this.commentService = commentService;
     }
 
     @GetMapping("/post-list")
@@ -88,7 +86,7 @@ public class PostController {
 
         Post post = postService.findById(postId);
         // 댓글 리스트를 함께 불러오기
-        List<Comment> commentList = commentService.findAllByPostId(postId);
+        List<Comment> commentList = postService.getCommentList(postId);
         model.addAttribute("post", post);
         // 현재 로그인한 사용자 이름 넘기기
         model.addAttribute("username", username);
@@ -127,7 +125,6 @@ public class PostController {
     @GetMapping("/post-delete/{postId}")
     public String deletePost(@PathVariable Long postId) {
         postService.deletePost(postId);
-        commentService.deleteCommentsByPostId(postId);
         return "redirect:/post-list";
     }
 }
