@@ -17,12 +17,10 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final CommentRepository commentRepository;
 
     @Autowired
-    public PostService(PostRepository postRepository, CommentRepository commentRepository) {
+    public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
-        this.commentRepository = commentRepository;
     }
 
     public void savePost(Post post) {
@@ -34,7 +32,6 @@ public class PostService {
     }
 
     public void deletePost(Long postId) {
-        commentRepository.deleteAllByPostId(postId);
         postRepository.deleteById(postId);
     }
 
