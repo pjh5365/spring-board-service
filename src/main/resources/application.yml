@@ -1,4 +1,7 @@
 spring:
+  h2:
+    console:
+      enabled: true
   datasource:
     url: jdbc:mariadb://localhost:3306/board
     username: pibber  # TODO 환경변수로 아이디와 비밀번호를 적용하니 테스트에서 hibernate.dialect 오류 발생

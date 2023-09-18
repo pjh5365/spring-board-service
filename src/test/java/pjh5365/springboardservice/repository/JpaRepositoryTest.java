@@ -37,18 +37,18 @@ class JpaRepositoryTest {
         member.setName("test");
         member.setEmail("test@email.com");
         member.setPassword("1234");
-        member.setCreatedAt(LocalDateTime.now());
+//        member.setCreatedAt(LocalDateTime.now());
 
         Post post = new Post();
         post.setTitle("제목");
         post.setContent("내용");
-        post.setCreatedAt(LocalDateTime.now());
+//        post.setCreatedAt(LocalDateTime.now());
         post.setCreatedBy("test");
 
         Comment comment = new Comment();
         comment.setContent("댓글 내용");
-        comment.setCreatedAt(LocalDateTime.now());
-        comment.setPostId(1L);
+//        comment.setCreatedAt(LocalDateTime.now());
+//        comment.setPostId(1L);
         comment.setCreatedBy("user");
 
         memberRepository.save(member);
@@ -71,7 +71,7 @@ class JpaRepositoryTest {
         member.setName("test");
         member.setEmail("test@email.com");
         member.setPassword("1234");
-        member.setCreatedAt(LocalDateTime.now());
+//        member.setCreatedAt(LocalDateTime.now());
 
         memberRepository.save(member);
         Optional<Member> member1 = memberRepository.findById(1L);
@@ -95,7 +95,7 @@ class JpaRepositoryTest {
         member.setName("test");
         member.setEmail("test@email.com");
         member.setPassword("1234");
-        member.setCreatedAt(LocalDateTime.now());
+//        member.setCreatedAt(LocalDateTime.now());
 
         memberRepository.save(member);
 
