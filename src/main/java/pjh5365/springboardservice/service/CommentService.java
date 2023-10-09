@@ -40,8 +40,4 @@ public class CommentService {
     public void deleteComment(Long commentId) {
         commentRepository.deleteById(commentId);
     }
-
-    public void deleteCommentsByPostId(Long postId) {
-        commentRepository.deleteAllByPostId(postId);
-    }
 }
