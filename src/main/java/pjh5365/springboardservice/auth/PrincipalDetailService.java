@@ -20,6 +20,7 @@ public class PrincipalDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("로그인 확인 메서드");
         Member principal = memberRepository.findByMemberId(username)
                 // 핸들러를 사용하지 않아 에러메시지를 확인할 수 는 없음
                 .orElseThrow(() -> new UsernameNotFoundException("해당 사용자 [" + username +  "] 의 정보를 찾을 수 없습니다. 아이디 혹은 비밀번호를 확인해주세요."));

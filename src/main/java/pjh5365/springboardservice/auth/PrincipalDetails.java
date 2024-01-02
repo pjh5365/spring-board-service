@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pjh5365.springboardservice.entity.Member;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class PrincipalDetails implements UserDetails {
@@ -17,10 +18,10 @@ public class PrincipalDetails implements UserDetails {
 //    TODO 계정이 가진 권한을 반환하는 메서드
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        Collection<GrantedAuthority> collectors = new ArrayList<>();
-//        collectors.add(() -> {
-//            return "ROLE_USER";
-//        });
+       Collection<GrantedAuthority> collectors = new ArrayList<>();
+       collectors.add(() -> {
+           return "ROLE_USER";
+       });
         return null;
     }
 

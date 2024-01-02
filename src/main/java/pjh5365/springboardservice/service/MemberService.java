@@ -27,6 +27,7 @@ public class MemberService {
             String rawPassword = member.getPassword();
             String encPassword = bCryptPasswordEncoder.encode(rawPassword);
             member.setPassword(encPassword);    // 패스워드 암호화
+            member.setRole("ROLE_USER");
 
             memberRepository.save(member);
             log.info("회원가입 성공 : {}", member);

@@ -1,5 +1,6 @@
 package pjh5365.springboardservice.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ public class MainController {
     // 루트 페이지
     @RequestMapping("/")
     public String main() {
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
         return "index";
     }
 
